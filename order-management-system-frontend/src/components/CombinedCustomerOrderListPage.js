@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import CustomerService from '../services/customerService';
 import OrderService from '../services/orderService';
 import './EntityList.css'; // Renamed CSS file for universal styling
@@ -10,6 +10,8 @@ const CombinedList = () => {
     const [orders, setOrders] = useState([]);
     const [showAddForm, setShowAddForm] = useState(false);
     const [confirmationMessage, setConfirmationMessage] = useState('');
+    const [message, setMessage] = useState(null);
+    const navigate = useNavigate();
 
     // Fetch customers
     useEffect(() => {
@@ -26,7 +28,6 @@ const CombinedList = () => {
     useEffect(() => {
         OrderService.getAllOrders()
             .then((response) => {
-                console.log("Orders fetched:", response.data);
                 setOrders(response.data);
             })
             .catch((error) => {
@@ -34,28 +35,42 @@ const CombinedList = () => {
             });
     }, []);
 
-    // Handle customer delete and force reload
-    const handleCustomerDelete = (customerId) => {
-        CustomerService.deleteCustomer(customerId)
-            .then(() => {
-                setCustomers(customers.filter(customer => customer.id !== customerId));
-                window.location.reload();
-            })
-            .catch((error) => {
-                console.error("There was an error deleting the customer!", error);
-                window.location.reload();
-            });
+    // Handle customer delete
+    const handleDeleteCustomer = async (customerId) => {
+        if (window.confirm('Are you sure you want to delete this customer?')) {
+            try {
+                await CustomerService.deleteCustomer(customerId);
+                // Update customers list
+                setCustomers(prevCustomers => prevCustomers.filter(c => c.customer_id !== customerId));
+                // Update orders list
+                setOrders(prevOrders => prevOrders.filter(o => o.customer_id !== customerId));
+                setMessage({ type: 'success', text: 'Customer deleted successfully' });
+            } catch (error) {
+                console.error('Error deleting customer:', error);
+                setMessage({ 
+                    type: 'error', 
+                    text: error.response?.data?.error || 'Failed to delete customer' 
+                });
+            }
+            setTimeout(() => setMessage(null), 3000);
+        }
     };
 
     // Handle order delete
     const handleOrderDelete = (orderId) => {
-        OrderService.deleteOrder(orderId)
-            .then(() => {
-                setOrders(orders.filter(order => order.order_id !== orderId));
-            })
-            .catch((error) => {
-                console.error("There was an error deleting the order!", error);
-            });
+        if (window.confirm('Are you sure you want to delete this order?')) {
+            OrderService.deleteOrder(orderId)
+                .then(() => {
+                    setOrders(orders.filter(order => order.order_id !== orderId));
+                    setConfirmationMessage('Order deleted successfully');
+                    setTimeout(() => setConfirmationMessage(''), 3000);
+                })
+                .catch((error) => {
+                    console.error("There was an error deleting the order!", error);
+                    setConfirmationMessage('Error deleting order');
+                    setTimeout(() => setConfirmationMessage(''), 3000);
+                });
+        }
     };
 
     // Toggle add form visibility
@@ -65,6 +80,11 @@ const CombinedList = () => {
 
     return (
         <div className="combined-list">
+            {message && (
+                <div className={`confirmation-message ${message.type === 'success' ? 'success' : 'error'}`}>
+                    {message.text}
+                </div>
+            )}
             {/* Customer (or Entity) List Section */}
             <div className="entity-list">
                 <h2 className="entity-section-header">Customer List</h2>
@@ -96,7 +116,7 @@ const CombinedList = () => {
                                     <button className="update-button">
                                         <Link to={`/customers/update/${customer.id}`}>Update</Link>
                                     </button>
-                                    <button className="delete-button" onClick={() => handleCustomerDelete(customer.id)}>
+                                    <button className="delete-button" onClick={() => handleDeleteCustomer(customer.id)}>
                                         Delete
                                     </button>
                                 </td>
@@ -115,7 +135,6 @@ const CombinedList = () => {
                     </button>
                 </div>
                 {showAddForm && <AddOrder setOrders={setOrders} toggleAddForm={toggleAddForm} />}
-                {confirmationMessage && <p>{confirmationMessage}</p>}
                 <table className="entity-table">
                     <thead>
                         <tr>
@@ -143,7 +162,7 @@ const CombinedList = () => {
                                 <tr key={order.order_id}>
                                     <td>{order.customer_name}</td>
                                     <td>{order.customer_company}</td>
-                                    <td>{formattedTime}</td> {/* Updated Time Format */}
+                                    <td>{formattedTime}</td>
                                     <td>{order.order_size}</td>
                                     <td>${order.sale_value.toFixed(2)}</td>
                                     <td className="action-buttons">
@@ -171,6 +190,5 @@ const CombinedList = () => {
         </div>
     );
 };
-
 
 export default CombinedList;
