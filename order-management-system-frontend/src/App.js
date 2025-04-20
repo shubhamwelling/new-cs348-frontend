@@ -13,6 +13,12 @@ import AddOrder from './components/AddOrder';
 import HomePage from './components/HomePage';
 import axios from 'axios';
 
+// Set up axios defaults
+const token = localStorage.getItem('token');
+if (token) {
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+}
+
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(null);
@@ -21,10 +27,12 @@ const ProtectedRoute = ({ children }) => {
     useEffect(() => {
         const checkAuth = async () => {
             try {
-                await axios.get('http://localhost:5000/auth/me', { withCredentials: true });
+                await axios.get('https://cs348-backend-a1eh.onrender.com/auth/me');
                 setIsAuthenticated(true);
             } catch (error) {
                 setIsAuthenticated(false);
+                localStorage.removeItem('token');
+                delete axios.defaults.headers.common['Authorization'];
             } finally {
                 setLoading(false);
             }

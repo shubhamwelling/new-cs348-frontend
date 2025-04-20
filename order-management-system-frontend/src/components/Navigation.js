@@ -6,13 +6,13 @@ import './Navigation.css';
 const Navigation = () => {
     const navigate = useNavigate();
 
-    const handleLogout = async () => {
-        try {
-            await axios.post('http://localhost:5000/auth/logout', {}, { withCredentials: true });
-            navigate('/login');
-        } catch (error) {
-            console.error('Logout error:', error);
-        }
+    const handleLogout = () => {
+        // Remove token from localStorage
+        localStorage.removeItem('token');
+        // Clear axios default headers
+        delete axios.defaults.headers.common['Authorization'];
+        // Navigate to login page
+        navigate('/login');
     };
 
     return (

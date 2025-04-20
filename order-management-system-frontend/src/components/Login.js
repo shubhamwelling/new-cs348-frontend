@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import './Login.css';
 
@@ -9,6 +9,20 @@ const Login = () => {
     const [error, setError] = useState('');
     const [isRegistering, setIsRegistering] = useState(false);
     const navigate = useNavigate();
+    const location = useLocation();
+
+    // Check for prefilled credentials in location state
+    useEffect(() => {
+        console.log('Location state:', location.state);
+        if (location.state?.username) {
+            setUsername(location.state.username);
+            console.log('Setting username from state:', location.state.username);
+        }
+        if (location.state?.password) {
+            setPassword(location.state.password);
+            console.log('Setting password from state');
+        }
+    }, [location.state]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -21,18 +35,37 @@ const Login = () => {
 
         try {
             const endpoint = isRegistering ? '/auth/register' : '/auth/login';
-            const response = await axios.post(`http://localhost:5000${endpoint}`, {
+            console.log('Making request to:', endpoint);
+            const response = await axios.post(`https://cs348-backend-a1eh.onrender.com${endpoint}`, {
                 username,
                 password
-            }, { withCredentials: true });
+            });
             
-            if (response.data.message === 'Login successful' || response.data.message === 'User registered successfully') {
+            console.log('Response:', response.data);
+            
+            if (response.data.message === 'Login successful') {
+                // Store the token
+                localStorage.setItem('token', response.data.token);
+                // Set default auth header
+                axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
                 navigate('/home');
+            } else if (response.data.message === 'User registered successfully') {
+                console.log('Registration successful, redirecting to login with credentials');
+                // Switch to login mode
+                setIsRegistering(false);
+                // Pass credentials to login page
+                navigate('/login', { 
+                    state: { 
+                        username: username,
+                        password: password
+                    },
+                    replace: true  // Replace current history entry
+                });
             }
         } catch (err) {
+            console.error('Auth error:', err.response?.data || err);
             const errorMessage = err.response?.data?.error || 'An error occurred';
             setError(errorMessage);
-            console.error('Auth error:', err.response?.data || err);
         }
     };
 

@@ -26,6 +26,7 @@ const CombinedList = () => {
     useEffect(() => {
         OrderService.getAllOrders()
             .then((response) => {
+                console.log("Orders fetched:", response.data);
                 setOrders(response.data);
             })
             .catch((error) => {

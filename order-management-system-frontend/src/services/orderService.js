@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5000/orders';
+const API_URL = 'https://cs348-backend-a1eh.onrender.com/orders';
 
 const getAllOrders = async () => {
-    return axios.get(API_URL);
+    return axios.get(`${API_URL}/`);
 };
 
 const getOrder = async (orderId) => {

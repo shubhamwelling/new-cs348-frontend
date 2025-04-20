@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5000/customers';  // Ensure this matches your Flask backend
+const API_URL = 'https://cs348-backend-a1eh.onrender.com/customers';  // Ensure this matches your Flask backend
 
 // Get all customers
 const getAllCustomers = async () => {

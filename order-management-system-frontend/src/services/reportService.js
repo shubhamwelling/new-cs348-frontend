@@ -1,7 +1,7 @@
 // src/services/reportService.js
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5000'; // Adjust this to your API URL
+const API_URL = 'https://cs348-backend-a1eh.onrender.com'; // Adjust this to your API URL
 
 export const generateReport = async (startDate, endDate, minOrderSize, minSaleValue) => {
   try {
