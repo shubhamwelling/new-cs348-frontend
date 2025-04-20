@@ -1,0 +1,106 @@
+.entity-list {
+    width: 85%; /* Reduced overall width */
+    margin: 20px auto;
+    font-family: Arial, sans-serif;
+}
+
+.entity-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 14px; /* Smaller table font */
+}
+
+.entity-table th,
+.entity-table td {
+    padding: 10px 15px; /* Reduced padding for a more compact table */
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.entity-table th {
+    background-color: #f4f4f4;
+}
+
+.entity-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.entity-attribute {
+    font-size: 12px; /* Smaller font size for attributes */
+}
+
+/* Update column width for the 3rd column */
+.entity-table th:nth-child(3),
+.entity-table td:nth-child(3) {
+    width: 25%; /* Adjust value as needed */
+    min-width: 150px; /* Prevents the column from shrinking too much */
+}
+
+.action-buttons {
+    display: flex;
+    gap: 8px; /* Adds space between the Update and Delete buttons */
+}
+
+.update-button {
+    background-color: #28a745; /* Green for update button */
+    color: white;
+    padding: 5px 10px; /* Smaller padding */
+    font-size: 12px;
+    border: none;
+    cursor: pointer;
+}
+
+.update-button a {
+    color: white;
+    text-decoration: none;
+}
+
+.delete-button {
+    background-color: #dc3545; /* Red for delete button */
+    color: white;
+    padding: 5px 10px; /* Smaller padding */
+    font-size: 12px;
+    border: none;
+    cursor: pointer;
+}
+
+.delete-button:hover {
+    background-color: #c82333;
+}
+
+.add-entity-container {
+    margin-bottom: 20px;
+}
+
+.add-entity-btn {
+    background-color: #007bff; /* Blue for add button */
+    color: white;
+    padding: 8px 12px; /* Smaller padding */
+    font-size: 12px;
+    border: none;
+    cursor: pointer;
+}
+
+.add-entity-btn:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+.add-entity-btn a {
+    color: white;
+    text-decoration: none;
+}
+
+.entity-section-header {
+    padding-top: 40px;  /* Padding above section headers */
+}
+.center-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-top: 10px; /* Adjust this value to control spacing */
+}
+.entity-section-header {
+    margin-top: 0; /* Ensures no extra space above the h2 */
+}

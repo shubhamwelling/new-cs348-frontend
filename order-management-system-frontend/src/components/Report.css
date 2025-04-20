@@ -1,0 +1,213 @@
+/* General report container styling */
+.report-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .report-title {
+    font-size: 2em;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  /* Input group styling */
+  .input-group {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+  }
+  
+  .input-field {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    margin-right: 10px;
+  }
+  
+  .input-field:last-child {
+    margin-right: 0;
+  }
+  
+  .input-field label {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .input-field input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+  }
+  
+  .generate-btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .generate-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Error message styling */
+  .error {
+    color: red;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 10px;
+  }
+  
+  /* Order list styling */
+  .orders-section {
+    margin-top: 30px;
+  }
+  
+  .order-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .order-item {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 10px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .order-item:hover {
+    transform: translateY(-5px);
+  }
+  
+  .order-header {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .order-details p {
+    margin: 5px 0;
+    font-size: 0.95em;
+  }
+  
+  .order-details strong {
+    color: #444;
+  }
+  
+  /* General statistics styling */
+  .statistics-section {
+    margin-top: 20px;
+  }
+  
+  .stat-item {
+    margin: 10px 0;
+    font-size: 1em;
+    color: #333;
+  }
+  
+  .stat-item strong {
+    color: #444;
+  }
+  
+  /* Report Results Container */
+.report-results {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.results-title {
+  text-align: center;
+  font-size: 1.8em;
+  margin-bottom: 20px;
+}
+
+/* Orders Section */
+.orders-section {
+  margin-bottom: 20px;
+}
+
+.order-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.order-card {
+  background: white;
+  border-radius: 8px;
+  padding: 15px;
+  width: 100%;
+  max-width: 280px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+}
+
+.order-card:hover {
+  transform: translateY(-5px);
+}
+
+.order-header {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #007bff;
+}
+
+.order-details p {
+  margin: 5px 0;
+  font-size: 0.95em;
+  color: #333;
+}
+
+.no-data {
+  font-size: 1em;
+  color: #666;
+  text-align: center;
+  padding: 10px;
+}
+
+/* Statistics Section */
+.statistics-section {
+  margin-top: 20px;
+}
+
+.statistics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Reduce min size */
+  gap: 10px; /* Reduce spacing */
+  margin-top: 10px;
+}
+
+.stat-card {
+  background: white;
+  padding: 10px; /* Reduce padding */
+  border-radius: 6px; /* Slightly smaller corners */
+  text-align: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Softer shadow */
+}
+
+.stat-card strong {
+  font-size: 1em; /* Reduce font size */
+  margin-bottom: 3px;
+}
+
+.stat-card p {
+  font-size: 1em; /* Reduce text size */
+  font-weight: bold;
+  color: #007bff;
+}
