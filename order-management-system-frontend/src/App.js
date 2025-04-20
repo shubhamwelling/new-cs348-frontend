@@ -55,18 +55,68 @@ const ProtectedRoute = ({ children }) => {
 
 function App() {
     return (
-        <Router basename="/">
+        <Router>
             <div className="container">
                 <h1>Dunder Mifflin Order Management System</h1>
                 <Routes>
                     <Route path="/login" element={<Login />} />
-                    <Route path="/" element={<ProtectedRoute><HomePage /></ProtectedRoute>} />
-                    <Route path="/customers" element={<ProtectedRoute><CombinedList /></ProtectedRoute>} />
-                    <Route path="/customers/add" element={<ProtectedRoute><AddCustomerPage /></ProtectedRoute>} />
-                    <Route path="/customers/update/:id" element={<ProtectedRoute><UpdateCustomer /></ProtectedRoute>} />
-                    <Route path="/orders/add" element={<ProtectedRoute><AddOrder /></ProtectedRoute>} />
-                    <Route path="/orders/update/:id" element={<ProtectedRoute><UpdateOrder /></ProtectedRoute>} />
-                    <Route path="/reports" element={<ProtectedRoute><Report /></ProtectedRoute>} />
+                    <Route path="/" element={<Navigate to="/login" />} />
+                    <Route 
+                        path="/home" 
+                        element={
+                            <ProtectedRoute>
+                                <HomePage />
+                            </ProtectedRoute>
+                        } 
+                    />
+                    <Route 
+                        path="/records" 
+                        element={
+                            <ProtectedRoute>
+                                <CombinedList />
+                            </ProtectedRoute>
+                        } 
+                    />
+                    <Route 
+                        path="/customers/add" 
+                        element={
+                            <ProtectedRoute>
+                                <AddCustomerPage />
+                            </ProtectedRoute>
+                        } 
+                    />
+                    <Route 
+                        path="/customers/update/:id" 
+                        element={
+                            <ProtectedRoute>
+                                <UpdateCustomer />
+                            </ProtectedRoute>
+                        } 
+                    />
+                    <Route 
+                        path="/orders/add" 
+                        element={
+                            <ProtectedRoute>
+                                <AddOrder />
+                            </ProtectedRoute>
+                        } 
+                    />
+                    <Route 
+                        path="/orders/update/:id" 
+                        element={
+                            <ProtectedRoute>
+                                <UpdateOrder />
+                            </ProtectedRoute>
+                        } 
+                    />
+                    <Route 
+                        path="/reports" 
+                        element={
+                            <ProtectedRoute>
+                                <Report />
+                            </ProtectedRoute>
+                        } 
+                    />
                 </Routes>
             </div>
         </Router>
