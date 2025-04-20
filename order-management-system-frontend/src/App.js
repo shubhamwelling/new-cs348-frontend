@@ -27,7 +27,7 @@ const ProtectedRoute = ({ children }) => {
     useEffect(() => {
         const checkAuth = async () => {
             try {
-                await axios.get('http://localhost:5000/auth/me');
+                await axios.get('https://cs348-backend-a1eh.onrender.com/auth/me');
                 setIsAuthenticated(true);
             } catch (error) {
                 setIsAuthenticated(false);
