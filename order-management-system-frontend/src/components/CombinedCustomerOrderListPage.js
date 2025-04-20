@@ -37,11 +37,11 @@ const CombinedList = () => {
 const handleCustomerDelete = (customerId) => {
     CustomerService.deleteCustomer(customerId)
         .then(() => {
-            setCustomers(customers.filter(customer => customer.id !== customerId));
-            setOrders(orders.filter(order => order.customer_id !== customerId));
+            window.location.reload();
             // REMOVE window.location.reload();
         })
         .catch((error) => {
+            window.location.reload();
             console.error("There was an error deleting the customer!", error);
         });
 };
@@ -51,9 +51,11 @@ const handleCustomerDelete = (customerId) => {
         OrderService.deleteOrder(orderId)
             .then(() => {
                 setOrders(orders.filter(order => order.order_id !== orderId));
+                window.location.reload();
             })
             .catch((error) => {
                 console.error("There was an error deleting the order!", error);
+                window.location.reload();
             });
     };
 
