@@ -38,6 +38,7 @@ const handleCustomerDelete = (customerId) => {
     CustomerService.deleteCustomer(customerId)
         .then(() => {
             setCustomers(customers.filter(customer => customer.id !== customerId));
+            setOrders(orders.filter(order => order.customer_id !== customerId));
             // REMOVE window.location.reload();
         })
         .catch((error) => {
