@@ -34,18 +34,16 @@ const CombinedList = () => {
             });
     }, []);
 
-    // Handle customer delete and force reload
-    const handleCustomerDelete = (customerId) => {
-        CustomerService.deleteCustomer(customerId)
-            .then(() => {
-                setCustomers(customers.filter(customer => customer.id !== customerId));
-                window.location.reload();
-            })
-            .catch((error) => {
-                console.error("There was an error deleting the customer!", error);
-                window.location.reload();
-            });
-    };
+const handleCustomerDelete = (customerId) => {
+    CustomerService.deleteCustomer(customerId)
+        .then(() => {
+            setCustomers(customers.filter(customer => customer.id !== customerId));
+            // REMOVE window.location.reload();
+        })
+        .catch((error) => {
+            console.error("There was an error deleting the customer!", error);
+        });
+};
 
     // Handle order delete
     const handleOrderDelete = (orderId) => {
