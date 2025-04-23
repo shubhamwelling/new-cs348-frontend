@@ -57,6 +57,16 @@ const AddOrder = ({ setOrders, toggleAddForm }) => {
             return;
         }
 
+        // Validate order size and sale value
+        if (parseFloat(order.orderSize) <= 1) {
+            setMessage('Order size must be greater than 1');
+            return;
+        }
+        if (parseFloat(order.saleValue) <= 1) {
+            setMessage('Sale value must be greater than 1');
+            return;
+        }
+
         const orderData = prepareOrderData(order.customerId);
         OrderService.addOrder(orderData)
             .then((response) => {

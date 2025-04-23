@@ -28,6 +28,17 @@ const UpdateOrder = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        // Validate order size and sale value
+        if (parseFloat(order.order_size) <= 1) {
+            setConfirmationMessage('Order size must be greater than 1');
+            return;
+        }
+        if (parseFloat(order.sale_value) <= 1) {
+            setConfirmationMessage('Sale value must be greater than 1');
+            return;
+        }
+
         OrderService.updateOrder(id, order)
             .then(() => {
                 //setConfirmationMessage('Order updated successfully!');
