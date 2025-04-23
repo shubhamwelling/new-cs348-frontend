@@ -25,14 +25,59 @@ const UpdateCustomer = () => {
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
-        setCustomer({
-            ...customer,
-            [name]: value,
-        });
+        if (name === 'phone') {
+            // Remove all non-digit characters
+            const numbers = value.replace(/\D/g, '');
+            
+            // Format as XXX-XXX-XXXX as user types
+            let formatted = '';
+            if (numbers.length > 0) {
+                formatted = numbers.substring(0, 3);
+                if (numbers.length > 3) {
+                    formatted += '-' + numbers.substring(3, 6);
+                    if (numbers.length > 6) {
+                        formatted += '-' + numbers.substring(6, 10);
+                    }
+                }
+            }
+            setCustomer({
+                ...customer,
+                [name]: formatted,
+            });
+        } else if (name === 'age') {
+            // Only allow numbers and ensure it's between 1 and 100
+            const ageValue = value.replace(/\D/g, ''); // Remove non-digit characters
+            if (ageValue === '' || (parseInt(ageValue) >= 1 && parseInt(ageValue) <= 100)) {
+                setCustomer({
+                    ...customer,
+                    [name]: ageValue,
+                });
+            }
+        } else {
+            setCustomer({
+                ...customer,
+                [name]: value,
+            });
+        }
     };
 
     const handleSubmit = (event) => {
         event.preventDefault();
+
+        // Validate phone number format
+        const phoneRegex = /^\d{3}-\d{3}-\d{4}$/;
+        if (!phoneRegex.test(customer.phone)) {
+            alert('Please enter a valid phone number in XXX-XXX-XXXX format');
+            return;
+        }
+
+        // Validate age
+        const age = parseInt(customer.age);
+        if (isNaN(age) || age < 1 || age > 100) {
+            alert('Please enter a valid age between 1 and 100 years old');
+            return;
+        }
+
         CustomerService.updateCustomer(id, customer)
             .then(() => {
                 navigate('/records'); // Redirect to the customer list after update
