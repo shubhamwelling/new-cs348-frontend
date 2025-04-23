@@ -30,6 +30,16 @@ const AddOrder = ({ setOrders, toggleAddForm }) => {
     // Handle input change for order
     const handleInputChange = (event) => {
         const { name, value } = event.target;
+        
+        if (name === 'orderSize' || name === 'saleValue') {
+            const numValue = parseFloat(value);
+            if (numValue <= 1 || numValue < 0) {
+                setMessage(`${name === 'orderSize' ? 'Order size' : 'Sale value'} must be greater than 1`);
+            } else {
+                setMessage('');
+            }
+        }
+        
         setOrder({ ...order, [name]: value });
     };
 
@@ -58,11 +68,11 @@ const AddOrder = ({ setOrders, toggleAddForm }) => {
         }
 
         // Validate order size and sale value
-        if (parseFloat(order.orderSize) <= 1) {
+        if (parseFloat(order.orderSize) <= 1 || parseFloat(order.orderSize) < 0) {
             setMessage('Order size must be greater than 1');
             return;
         }
-        if (parseFloat(order.saleValue) <= 1) {
+        if (parseFloat(order.saleValue) <= 1 || parseFloat(order.saleValue) < 0) {
             setMessage('Sale value must be greater than 1');
             return;
         }
@@ -138,6 +148,7 @@ const AddOrder = ({ setOrders, toggleAddForm }) => {
 
                 <button type="submit" className="submit-btn-add-order">Add Order</button>
             </form>
+            {message && <p className="error-message">{message}</p>}
         </div>
     );
 };
