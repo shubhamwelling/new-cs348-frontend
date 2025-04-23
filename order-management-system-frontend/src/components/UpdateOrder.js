@@ -69,7 +69,7 @@ const UpdateOrder = () => {
                 </div>
 
                 <div className="form-group">
-                    <label>Order Size:</label>
+                    <label>Order Size ($):</label>
                     <input
                         type="number"
                         value={order.order_size}

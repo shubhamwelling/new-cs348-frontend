@@ -126,7 +126,7 @@ const UpdateCustomer = () => {
                     />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="phone">Phone:</label>
+                    <label htmlFor="phone">Phone(XXX-XXX-XXXX):</label>
                     <input
                         type="text"
                         id="phone"

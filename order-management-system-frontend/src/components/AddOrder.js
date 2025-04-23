@@ -125,7 +125,7 @@ const AddOrder = ({ setOrders, toggleAddForm }) => {
                 </div>
 
                 <div className="form-group">
-                    <label htmlFor="saleValue">Sale Value:</label>
+                    <label htmlFor="saleValue">Sale Value ($):</label>
                     <input
                         type="number"
                         id="saleValue"
