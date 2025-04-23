@@ -148,7 +148,7 @@ const AddCustomer = ({ setCustomers, toggleAddForm }) => {
             </form>
 
             {/* Display success or error message */}
-            {message && <p className="message">{message}</p>}
+            {message && <p style={{ color: 'red', fontSize: '14px', fontFamily: 'Arial, sans-serif', marginTop: '10px' }}>{message}</p>}
         </div>
     );
 };

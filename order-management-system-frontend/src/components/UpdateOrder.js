@@ -91,7 +91,7 @@ const UpdateOrder = () => {
 
                 <button type="submit" className="submit-btn-update-order">Update Order</button>
             </form>
-            {confirmationMessage && <p className="confirmation-message">{confirmationMessage}</p>}
+            {confirmationMessage && <p style={{ color: 'red', fontSize: '14px', fontFamily: 'Arial, sans-serif', marginTop: '10px' }}>{confirmationMessage}</p>}
         </div>
     );
 };

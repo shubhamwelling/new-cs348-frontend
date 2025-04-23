@@ -138,6 +138,7 @@ const AddOrder = ({ setOrders, toggleAddForm }) => {
 
                 <button type="submit" className="submit-btn-add-order">Add Order</button>
             </form>
+            {message && <p style={{ color: 'red', fontSize: '14px', fontFamily: 'Arial, sans-serif', marginTop: '10px' }}>{message}</p>}
         </div>
     );
 };

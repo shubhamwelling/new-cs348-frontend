@@ -12,6 +12,7 @@ const UpdateCustomer = () => {
         phone: '',
         age: '',
     });
+    const [message, setMessage] = useState('');  // Add message state
 
     useEffect(() => {
         CustomerService.getCustomer(id)
@@ -61,30 +62,29 @@ const UpdateCustomer = () => {
         }
     };
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
+    const handleSubmit = (e) => {
+        e.preventDefault();
 
         // Validate phone number format
         const phoneRegex = /^\d{3}-\d{3}-\d{4}$/;
         if (!phoneRegex.test(customer.phone)) {
-            alert('Please enter a valid phone number in XXX-XXX-XXXX format');
+            setMessage('Phone number must be in XXX-XXX-XXXX format');
             return;
         }
 
         // Validate age
         const age = parseInt(customer.age);
         if (isNaN(age) || age < 1 || age > 100) {
-            alert('Please enter a valid age between 1 and 100 years old');
+            setMessage('Age must be between 1 and 100 years old');
             return;
         }
 
         CustomerService.updateCustomer(id, customer)
             .then(() => {
-                navigate('/records'); // Redirect to the customer list after update
+                navigate('/records');
             })
             .catch((error) => {
                 navigate('/records');
-                //console.error("There was an error updating the customer!", error);
             });
     };
 
@@ -149,6 +149,7 @@ const UpdateCustomer = () => {
                 </div>
                 <button type="submit" className="submit-btn">Update Customer</button>
             </form>
+            {message && <p style={{ color: 'red', fontSize: '14px', fontFamily: 'Arial, sans-serif', marginTop: '10px' }}>{message}</p>}
         </div>
     );
 };
