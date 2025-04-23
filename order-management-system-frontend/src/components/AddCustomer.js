@@ -17,16 +17,45 @@ const AddCustomer = ({ setCustomers, toggleAddForm }) => {
     // Handle input change
     const handleInputChange = (event) => {
         const { name, value } = event.target;
-        setCustomer({
-            ...customer,
-            [name]: value,
-        });
+        if (name === 'phone') {
+            // Remove all non-digit characters
+            const numbers = value.replace(/\D/g, '');
+            
+            // Format as XXX-XXX-XXXX as user types
+            let formatted = '';
+            if (numbers.length > 0) {
+                formatted = numbers.substring(0, 3);
+                if (numbers.length > 3) {
+                    formatted += '-' + numbers.substring(3, 6);
+                    if (numbers.length > 6) {
+                        formatted += '-' + numbers.substring(6, 10);
+                    }
+                }
+            }
+            setCustomer({
+                ...customer,
+                [name]: formatted,
+            });
+        } else {
+            setCustomer({
+                ...customer,
+                [name]: value,
+            });
+        }
     };
 
     // Handle form submission
     const handleSubmit = (event) => {
         event.preventDefault();
         setMessage(''); // Clear previous message
+
+        // Validate phone number format
+        const phoneRegex = /^\d{3}-\d{3}-\d{4}$/;
+        if (!phoneRegex.test(customer.phone)) {
+            setMessage('Please enter a valid phone number in XXX-XXX-XXXX format');
+            return;
+        }
+
         CustomerService.addCustomer(customer)
             .then((response) => {
                 setCustomers((prevCustomers) => [...prevCustomers, response.data]); // Add the new customer to the list
