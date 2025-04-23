@@ -36,6 +36,15 @@ const AddCustomer = ({ setCustomers, toggleAddForm }) => {
                 ...customer,
                 [name]: formatted,
             });
+        } else if (name === 'age') {
+            // Only allow numbers and ensure it's between 1 and 100
+            const ageValue = value.replace(/\D/g, ''); // Remove non-digit characters
+            if (ageValue === '' || (parseInt(ageValue) >= 1 && parseInt(ageValue) <= 100)) {
+                setCustomer({
+                    ...customer,
+                    [name]: ageValue,
+                });
+            }
         } else {
             setCustomer({
                 ...customer,
@@ -53,6 +62,13 @@ const AddCustomer = ({ setCustomers, toggleAddForm }) => {
         const phoneRegex = /^\d{3}-\d{3}-\d{4}$/;
         if (!phoneRegex.test(customer.phone)) {
             setMessage('Please enter a valid phone number in XXX-XXX-XXXX format');
+            return;
+        }
+
+        // Validate age
+        const age = parseInt(customer.age);
+        if (isNaN(age) || age < 1 || age > 100) {
+            setMessage('Please enter a valid age between 1 and 100 years old');
             return;
         }
 
