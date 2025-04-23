@@ -30,16 +30,6 @@ const AddOrder = ({ setOrders, toggleAddForm }) => {
     // Handle input change for order
     const handleInputChange = (event) => {
         const { name, value } = event.target;
-        
-        if (name === 'orderSize' || name === 'saleValue') {
-            const numValue = parseFloat(value);
-            if (numValue <= 1 || numValue < 0) {
-                setMessage(`${name === 'orderSize' ? 'Order size' : 'Sale value'} must be greater than 1`);
-            } else {
-                setMessage('');
-            }
-        }
-        
         setOrder({ ...order, [name]: value });
     };
 
@@ -148,7 +138,6 @@ const AddOrder = ({ setOrders, toggleAddForm }) => {
 
                 <button type="submit" className="submit-btn-add-order">Add Order</button>
             </form>
-            {message && <p className="error-message">{message}</p>}
         </div>
     );
 };

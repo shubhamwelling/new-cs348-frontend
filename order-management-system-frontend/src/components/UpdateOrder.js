@@ -73,16 +73,7 @@ const UpdateOrder = () => {
                     <input
                         type="number"
                         value={order.order_size}
-                        onChange={(e) => {
-                            const value = e.target.value;
-                            const numValue = parseFloat(value);
-                            if (numValue <= 1 || numValue < 0) {
-                                setConfirmationMessage('Order size must be greater than 1');
-                            } else {
-                                setConfirmationMessage('');
-                            }
-                            setOrder({ ...order, order_size: value });
-                        }}
+                        onChange={(e) => setOrder({ ...order, order_size: e.target.value })}
                         required
                     />
                 </div>
@@ -93,16 +84,7 @@ const UpdateOrder = () => {
                         type="number"
                         step="0.01"
                         value={order.sale_value}
-                        onChange={(e) => {
-                            const value = e.target.value;
-                            const numValue = parseFloat(value);
-                            if (numValue <= 1 || numValue < 0) {
-                                setConfirmationMessage('Sale value must be greater than 1');
-                            } else {
-                                setConfirmationMessage('');
-                            }
-                            setOrder({ ...order, sale_value: value });
-                        }}
+                        onChange={(e) => setOrder({ ...order, sale_value: e.target.value })}
                         required
                     />
                 </div>
